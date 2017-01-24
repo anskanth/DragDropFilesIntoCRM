@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script>
+        
+        function FileDrag(e)
+        {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+
+        function FileSelected(e)
+        {
+            FileDrag(e);
+
+            var files = e.target.files || e.dataTransfer.files;
+
+
+            var file = files[0];
+
+            var fileReader = new FileReader();
+            fileReader.onload = function (e)
+            {
+                var content = e.target.result;
+               // document.write(content);
+
+                UploadFile(content,file);
+            }
+            fileReader.readAsArrayBuffer(file);
+            
+        }
+
+        function UploadFile(filecontent,file)
+        {
+            var content=ArrayBufferToBase64(filecontent);
+
+
+            var req = new XMLHttpRequest()
+
+          
+            var data = {};
+            data.filename=file.name;
+            data.documentbody=content;
+            data.mimetype=file.type;
+            data.subject="test";
+            data["objectid_contact@odata.bind"] = "/contacts(63A0E5B9-88DF-E311-B8E5-6C3BE5A8B200)";
+    
+            var query = "/annotations";
+            req.open("POST", encodeURI(GetWebApiUrl() + query), false);
+            req.setRequestHeader("Accept", "application/json");
+            req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+            req.setRequestHeader("OData-MaxVersion", "4.0");
+            req.setRequestHeader("OData-Version", "4.0");
+            req.send(JSON.stringify(data));
+
+
+            if (req.status == 204) {
+                //successCallback();
+                alert(" Completed !!");
+            } else {
+                var error = JSON.parse(req.response).error;
+                alert(error.message);
+            }
+        }
+        function GetWebApiUrl()
+        {
+            return "https://mysetuporg.crm8.dynamics.com/api/data/v8.2";
+        }
+        function ArrayBufferToBase64(buffer) { // Convert Array Buffer to Base 64 string
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <input type="file" id="fileSelect" onchange="FileSelected" />
+
+        <div id="filedroplocation" style="width:300px; height:300px; background-color:gray"
+             ondragover="FileDrag" ondragleave="FileDrag" ondrop="FileSelected"
+             >
+
+        </div>
+    </div>
+    <script>
+
+        var fileSel = document.getElementById("fileSelect");
+        var fileDiv = document.getElementById("filedroplocation");
+        if (fileSel !== undefined) {
+            //alert(fileSel);
+            fileSel.addEventListener("change", FileSelected, false);
+            fileDiv.addEventListener("dragover", FileDrag, false);
+            fileDiv.addEventListener("dragleave", FileDrag, false);
+            fileDiv.addEventListener("drop", FileSelected, false);
+        }
+    </script>
+</body>
+</html>

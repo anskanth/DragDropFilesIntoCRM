@@ -1,0 +1,35 @@
+﻿.divlocation {
+    border: dashed;
+    border-width:2px;
+    background-color:cadetblue;
+    min-width:300px;
+    min-height:125px;
+    overflow:auto;
+}
+
+table{
+    border:none;
+    width:100%;
+    height:100%;
+}
+
+body{
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    margin:0 !important;
+    padding:0 !important;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:10px;
+}
+
+.msgStyle{
+
+    font-size:15px;
+    color:white;
+}
+
+.dragover {
+    background-color:Highlight;
+}

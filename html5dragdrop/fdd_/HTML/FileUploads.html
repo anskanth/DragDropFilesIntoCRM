@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="../../ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <link href="../StyleSheets/FileUploads.css" rel="stylesheet" />
+    <script src="../Javascript/FileUploads.js"></script>
+    <script src="../Javascript/CrmScripts.js"></script>
+</head>
+<body onload="DocumentLoaded()">
+    <div class="divlocation" style="height: 100px" id="filedroplocation">
+        <table>
+            
+            <tr>
+               
+                   <td  colspan="2" style="text-align: center; vertical-align:top">
+                       <span class="msgStyle">Drop files here <span style="font-size: 9px">(anywhere on the highlighted area)</span>,
+                           <br /><a href="#" id="uploadBtn">  Click Here to Upload </a> in to CRM !!  </span>
+                            <span id="msg" style="font-size: 9px"></span>
+                                    <br />
+                                    <span id="msg1" style="font-size: 9px"></span> 
+                     
+                   </td>
+                        
+                    
+               
+            </tr>
+            <tr>
+                <td>
+                    <input type="file" id="fileCtrl" multiple="multiple" />
+                </td>
+                <td>
+                    <input type="checkbox" id="chkTitle" />
+                    Prompt for Title
+                <input type="checkbox" id="chkDescription" />
+                    Prompt for Description
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
